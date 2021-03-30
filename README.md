@@ -6,6 +6,8 @@ This package is an extension of huey contrib djhuey package that allows users to
 
 Using pip package manager run:
 ```
+# pip install Django  if not installed
+# pip install huey    if not installed
 pip install django-huey
 ```
 
@@ -42,6 +44,7 @@ HUEYS = {
     }
 }
 ```
+**Note:** This setting is incompatible with HUEY setting.
 
 ## Usage
 Now you will be able to run multiple queues using:
