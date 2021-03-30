@@ -17,10 +17,5 @@ STATICFILES_DIRS = ()
 MIDDLEWARE_CLASSES = []
 
 INSTALLED_APPS = [
-    "huey.contrib.djhuey"
+    "django_huey"
 ]
-
-HUEY = {
-    'name': 'test',
-    'always_eager': DEBUG,
-}

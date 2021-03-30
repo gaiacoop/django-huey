@@ -1,9 +1,11 @@
 import unittest
 from unittest.mock import patch
-
 from huey import RedisHuey, MemoryHuey
 from huey.exceptions import ConfigurationError
-from huey.contrib.djhuey.config import DjangoHueySettingsReader
+import os
+
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'tests.settings')
+from django_huey.config import DjangoHueySettingsReader
 
 class DjHueyTests(unittest.TestCase):
     def test_djhuey_config_with_no_settings(self):
@@ -57,7 +59,7 @@ class DjHueyTests(unittest.TestCase):
         config.configure()
 
         self.assertTrue(isinstance(config.huey_setting, RedisHuey))
-        self.assertEquals(config.huey_setting.name, 'test')
+        self.assertEqual(config.huey_setting.name, 'test')
 
 
     def test_djhuey_configure_when_huey_setting_is_defined(self, *args):
@@ -71,7 +73,7 @@ class DjHueyTests(unittest.TestCase):
         config.configure()
 
         self.assertTrue(isinstance(config.huey_setting, RedisHuey))
-        self.assertEquals(config.default_queue(None).name, 'testname')
+        self.assertEqual(config.default_queue(None).name, 'testname')
 
     def test_djhuey_configure_when_hueys_setting_is_defined(self, *args):
         HUEYS = {
@@ -90,9 +92,9 @@ class DjHueyTests(unittest.TestCase):
         config.configure()
 
         self.assertTrue(isinstance(config.default_queue('first'), RedisHuey))
-        self.assertEquals(config.default_queue('first').name, 'testname')
+        self.assertEqual(config.default_queue('first').name, 'testname')
         self.assertTrue(isinstance(config.default_queue('mails'), MemoryHuey))
-        self.assertEquals(config.default_queue('mails').name, 'testnamememory')
+        self.assertEqual(config.default_queue('mails').name, 'testnamememory')
 
     def test_djhuey_configure_when_hueys_setting_is_defined(self, *args):
         HUEYS = object()
@@ -102,3 +104,6 @@ class DjHueyTests(unittest.TestCase):
         with self.assertRaises(SystemExit):
             config.configure()
 
+if __name__ == '__main__':
+
+    unittest.main()
