@@ -19,3 +19,5 @@ MIDDLEWARE_CLASSES = []
 INSTALLED_APPS = [
     "django_huey"
 ]
+
+HUEYS = {}
