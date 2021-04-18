@@ -1,8 +1,14 @@
-![Version](https://img.shields.io/badge/version-0.1.1-informational.svg)
+![Version](https://img.shields.io/badge/version-0.2.0-informational.svg)
 
 # django-huey
 
 This package is an extension of [huey](https://github.com/coleifer/huey) contrib djhuey package that allows users to manage multiple queues.
+
+## Compatible versions
+| Package     | Version     |
+| ----------- | ----------- |
+| Django      | 3.1.x       |
+| huey        | 2.3.x       |
 
 ## Installation
 
