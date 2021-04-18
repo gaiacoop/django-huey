@@ -3,7 +3,7 @@ import sys
 from importlib import import_module
 from django.conf import settings
 from huey.exceptions import ConfigurationError
-from huey.contrib.djhuey import default_backend_path, get_backend, default_queue_name
+from huey.contrib.djhuey import default_backend_path, get_backend
 
 
 class DjangoHueySettingsReader:
@@ -19,7 +19,7 @@ class DjangoHueySettingsReader:
         for queue_name, config in self.hueys_setting.items():
             huey_config = config.copy()
 
-            new_hueys[queue_name] = self._configure_instance(huey_config)
+            new_hueys[queue_name] = self._configure_instance(huey_config, queue_name)
 
         self.hueys_setting = new_hueys
 
@@ -34,8 +34,8 @@ python manage.py run_djangohuey --queue first
         return self.hueys_setting[queue]
 
 
-    def _configure_instance(self, huey_config):
-        name = huey_config.pop('name', default_queue_name())
+    def _configure_instance(self, huey_config, default_queue_name):
+        name = huey_config.pop('name', default_queue_name)
         if 'backend_class' in huey_config:
             huey_config['huey_class'] = huey_config.pop('backend_class')
         backend_path = huey_config.pop('huey_class', default_backend_path)

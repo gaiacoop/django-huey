@@ -83,6 +83,24 @@ python manage.py run_djangohuey --queue first
             config.configure()
         self.assertEqual('Error: HUEYS must be a dictionary', str(cm.exception))
 
+    def test_djangohuey_if_name_is_not_defined_queue_name_is_default(self, *args):
+        HUEYS = {
+            'first': {
+                'huey_class': 'huey.RedisHuey',  # Huey implementation to use.
+            },
+            'mails': {
+                'huey_class': 'huey.MemoryHuey',  # Huey implementation to use.
+            }
+        }
+
+        config = DjangoHueySettingsReader(HUEYS)
+
+        config.configure()
+        self.assertEqual(config.default_queue('first').name, 'first')
+
+        self.assertEqual(config.default_queue('mails').name, 'mails')
+
+
 if __name__ == '__main__':
 
     unittest.main()
