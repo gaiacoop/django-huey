@@ -2,7 +2,7 @@
 
 # django-huey
 
-This package is an extension of huey contrib djhuey package that allows users to manage multiple queues.
+This package is an extension of [huey](https://github.com/coleifer/huey) contrib djhuey package that allows users to manage multiple queues.
 
 ## Installation
 
@@ -46,7 +46,6 @@ HUEYS = {
     }
 }
 ```
-**Note:** This setting is incompatible with HUEY setting.
 
 ## Usage
 Now you will be able to run multiple queues using:
