@@ -8,9 +8,9 @@ from django.db import close_old_connections
 
 from django_huey.config import DjangoHueySettingsReader
 
-HUEYS = getattr(settings, 'HUEYS', None)
+DJANGO_HUEY = getattr(settings, 'DJANGO_HUEY', None)
 
-config = DjangoHueySettingsReader(HUEYS)
+config = DjangoHueySettingsReader(DJANGO_HUEY)
 config.configure()
 
 def get_close_db_for_queue(queue):
