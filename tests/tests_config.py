@@ -14,7 +14,7 @@ class DjangoHueyTests(unittest.TestCase):
         with self.assertRaises(ConfigurationError) as cm:
             config.configure()
 
-        self.assertEqual('Error: HUEYS must be a dictionary', str(cm.exception))
+        self.assertEqual('Error: DJANGO_HUEY must be a dictionary', str(cm.exception))
 
 
     def test_djangohuey_configure_does_not_raise_error_when_both_settings_are_defined(self):
@@ -23,24 +23,24 @@ class DjangoHueyTests(unittest.TestCase):
             'immediate': True,
         }
 
-        HUEYS = {
+        DJANGO_HUEY = {
             'queuename': {
                 'name': 'test',
                 'immediate': True,
             }
         }
-        config = DjangoHueySettingsReader(HUEYS)
+        config = DjangoHueySettingsReader(DJANGO_HUEY)
 
         config.configure()
 
     def test_djangohuey_default_queue_when_queue_is_none(self):
-        HUEYS = {
+        DJANGO_HUEY = {
             'queuename': {
                 'name': 'test',
                 'immediate': True,
             }
         }
-        config = DjangoHueySettingsReader(HUEYS)
+        config = DjangoHueySettingsReader(DJANGO_HUEY)
 
         config.configure()
 
@@ -48,13 +48,13 @@ class DjangoHueyTests(unittest.TestCase):
             config.default_queue(None)
 
         self.assertEqual("""
-If HUEYS is configured run_djangohuey must receive a --queue parameter
+If DJANGO_HUEY is configured run_djangohuey must receive a --queue parameter
 i.e.: 
 python manage.py run_djangohuey --queue first
                 """, str(cm.exception))
 
     def test_djangohuey_configure_when_hueys_setting_is_defined(self, *args):
-        HUEYS = {
+        DJANGO_HUEY = {
             'first': {
                 'huey_class': 'huey.RedisHuey',  # Huey implementation to use.
                 'name': 'testname',  # Use db name for huey.
@@ -65,7 +65,7 @@ python manage.py run_djangohuey --queue first
             }
         }
 
-        config = DjangoHueySettingsReader(HUEYS)
+        config = DjangoHueySettingsReader(DJANGO_HUEY)
 
         config.configure()
 
@@ -75,16 +75,16 @@ python manage.py run_djangohuey --queue first
         self.assertEqual(config.default_queue('mails').name, 'testnamememory')
 
     def test_djangohuey_configure_when_hueys_setting_is_an_object_raises_error(self, *args):
-        HUEYS = object()
+        DJANGO_HUEY = object()
 
-        config = DjangoHueySettingsReader(HUEYS)
+        config = DjangoHueySettingsReader(DJANGO_HUEY)
 
         with self.assertRaises(ConfigurationError) as cm:
             config.configure()
-        self.assertEqual('Error: HUEYS must be a dictionary', str(cm.exception))
+        self.assertEqual('Error: DJANGO_HUEY must be a dictionary', str(cm.exception))
 
     def test_djangohuey_if_name_is_not_defined_queue_name_is_default(self, *args):
-        HUEYS = {
+        DJANGO_HUEY = {
             'first': {
                 'huey_class': 'huey.RedisHuey',  # Huey implementation to use.
             },
@@ -93,7 +93,7 @@ python manage.py run_djangohuey --queue first
             }
         }
 
-        config = DjangoHueySettingsReader(HUEYS)
+        config = DjangoHueySettingsReader(DJANGO_HUEY)
 
         config.configure()
         self.assertEqual(config.default_queue('first').name, 'first')

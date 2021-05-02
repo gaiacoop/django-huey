@@ -13,7 +13,7 @@ class DjangoHueySettingsReader:
 
     def configure(self):
         if not isinstance(self.hueys_setting, dict):
-            raise ConfigurationError('Error: HUEYS must be a dictionary')
+            raise ConfigurationError('Error: DJANGO_HUEY must be a dictionary')
 
         new_hueys = dict()
         for queue_name, config in self.hueys_setting.items():
@@ -27,7 +27,7 @@ class DjangoHueySettingsReader:
     def default_queue(self, queue):
         if queue is None:
             raise ConfigurationError("""
-If HUEYS is configured run_djangohuey must receive a --queue parameter
+If DJANGO_HUEY is configured run_djangohuey must receive a --queue parameter
 i.e.: 
 python manage.py run_djangohuey --queue first
                 """)

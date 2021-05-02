@@ -90,10 +90,8 @@ class Command(BaseCommand):
 
     def default_queue_settings(self, queue):
         try:
-            if not queue and isinstance(settings.HUEY, dict):
-                return settings.HUEY.get('consumer', {})
-            if queue and isinstance(settings.HUEYS, dict):
-                return settings.HUEYS[queue].get('consumer', {})
+            if isinstance(settings.DJANGO_HUEY, dict):
+                return settings.DJANGO_HUEY[queue].get('consumer', {})
         except AttributeError:
             pass
         return {}
