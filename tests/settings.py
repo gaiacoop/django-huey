@@ -20,4 +20,4 @@ INSTALLED_APPS = [
     "django_huey"
 ]
 
-HUEYS = {}
+DJANGO_HUEY = {}

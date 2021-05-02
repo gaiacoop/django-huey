@@ -31,9 +31,9 @@ INSTALLED_APPS = [
 ```
 
 ## Configuration
-In **settings.py** you must add the HUEYS setting:
+In **settings.py** you must add the DJANGO_HUEY setting:
 ```python
-HUEYS = {
+DJANGO_HUEY = {
     'first': {#this name will be used in decorators below
         'huey_class': 'huey.RedisHuey',  
         'name': 'first_tasks',  

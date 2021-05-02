@@ -3,9 +3,21 @@
 ## Unreleased
 - Allow definition of a default queue.
 - Change command run_djangohuey to djangohuey.
-- Change setting name to DJANGO_HUEY. 
 - Allow definition of queues by django app.
 - Allow definition of specific queues file path.
+
+## 1.0.0 - 
+**Note** This release contains breaking changes, see them below with the migration instructions.
+
+
+### Changed
+- HUEYS django setting renamed to DJANGO_HUEY
+
+
+### Breaaking Changes
+- HUEYS django setting renamed to DJANGO_HUEY
+**Migration example**
+
 
 ## 0.2.0 - 2021-04-18
 
