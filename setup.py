@@ -5,7 +5,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setup(
     name="django-huey",
-    version="0.2.0",
+    version="1.0.0",
     scripts=[],
     author="GAIA - Cooperativa de desarrollo de software",
     author_email="contacto@gaiacoop.tech",

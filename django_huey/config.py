@@ -2,7 +2,7 @@ import sys
 
 from importlib import import_module
 from django.conf import settings
-from huey.exceptions import ConfigurationError
+from django_huey.exceptions import ConfigurationError
 from huey.contrib.djhuey import default_backend_path, get_backend
 
 
@@ -27,9 +27,9 @@ class DjangoHueySettingsReader:
     def default_queue(self, queue):
         if queue is None:
             raise ConfigurationError("""
-If DJANGO_HUEY is configured run_djangohuey must receive a --queue parameter
+Command djangohuey must receive a --queue parameter
 i.e.: 
-python manage.py run_djangohuey --queue first
+python manage.py djangohuey --queue first
                 """)
         return self.hueys_setting[queue]
 
