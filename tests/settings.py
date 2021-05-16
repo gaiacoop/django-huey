@@ -20,7 +20,9 @@ INSTALLED_APPS = [
     "django_huey"
 ]
 
-DJANGO_HUEY = {}
+DJANGO_HUEY = {
+    'queues': {}
+}
 HUEY = {
     'name': 'test',
     'immediate': True,

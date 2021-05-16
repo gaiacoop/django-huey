@@ -8,7 +8,13 @@ from huey.contrib.djhuey import default_backend_path, get_backend
 
 class DjangoHueySettingsReader:
     def __init__(self, hueys_setting):
-        self.hueys_setting = hueys_setting
+        if not isinstance(hueys_setting, dict):
+            raise ConfigurationError('Error: DJANGO_HUEY must be a dictionary')
+        self.hueys_setting = hueys_setting.get('queues')
+        self.default_queue = hueys_setting.get('default')
+
+        if self.default_queue is not None and self.default_queue not in self.hueys_setting:
+            raise ConfigurationError(f"Queue defined as default: {self.default_queue}, is not configured in DJANGO_HUEY.")
         self.hueys = {}
 
     def configure(self):
@@ -24,16 +30,32 @@ class DjangoHueySettingsReader:
         self.hueys_setting = new_hueys
 
 
-    def default_queue(self, queue):
-        if queue is None:
-            raise ConfigurationError("""
-Command djangohuey must receive a --queue parameter
+    def get_queue(self, queue):
+        return self.hueys_setting[self.get_queue_name(queue)]
+
+    def get_queue_name(self, queue_name):
+        if queue_name is None:
+            if self.default_queue is None:
+                self._raise_queue_config_error()
+
+            queue_name = self.default_queue
+        return queue_name
+
+    def _raise_queue_config_error(self):
+        raise ConfigurationError("""
+Command djangohuey must receive a --queue parameter or define a default queue in DJANGO_HUEY setting.
 i.e.: 
 python manage.py djangohuey --queue first
-                """)
-        return self.hueys_setting[queue]
 
+or in settings file:
 
+DJANGO_HUEY = {
+    'default': 'your-default-queue-name',
+    'queues': {
+        #Your queues here
+    }
+}
+""")
     def _configure_instance(self, huey_config, default_queue_name):
         name = huey_config.pop('name', default_queue_name)
         if 'backend_class' in huey_config:

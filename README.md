@@ -34,32 +34,42 @@ INSTALLED_APPS = [
 In **settings.py** you must add the DJANGO_HUEY setting:
 ```python
 DJANGO_HUEY = {
-    'first': {#this name will be used in decorators below
-        'huey_class': 'huey.RedisHuey',  
-        'name': 'first_tasks',  
-        'consumer': {
-            'workers': 2,
-            'worker_type': 'thread',
+    'default': 'first', #this name must match with any of the queues defined below.
+    'queues': {
+        'first': {#this name will be used in decorators below
+            'huey_class': 'huey.RedisHuey',  
+            'name': 'first_tasks',  
+            'consumer': {
+                'workers': 2,
+                'worker_type': 'thread',
+            },
         },
-    },
-    'emails': {#this name will be used in decorators below
-        'huey_class': 'huey.RedisHuey',  
-        'name': 'emails_tasks',  
-        'consumer': {
-            'workers': 5,
-            'worker_type': 'thread',
-        },
+        'emails': {#this name will be used in decorators below
+            'huey_class': 'huey.RedisHuey',  
+            'name': 'emails_tasks',  
+            'consumer': {
+                'workers': 5,
+                'worker_type': 'thread',
+            },
+        }
     }
 }
 ```
 
-## Usage
+### Usage
 Now you will be able to run multiple queues using:
 ```
 python manage.py djangohuey --queue first
 python manage.py djangohuey --queue emails
 ```
 Each queue must be run in a different terminal.
+
+If you defined a default queue, you can just run:
+```
+python manage.py djangohuey
+```
+And the default queue will be used.
+
 
 ## Configuring tasks
 You can use usual *huey* decorators to register tasks, but they must be imported from django_huey as shown below:
