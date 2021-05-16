@@ -8,7 +8,6 @@ from django.utils.module_loading import autodiscover_modules
 from huey.consumer_options import ConsumerConfig
 from huey.consumer_options import OptionParserHandler
 
-
 logger = logging.getLogger(__name__)
 
 
@@ -46,7 +45,7 @@ class Command(BaseCommand):
         parser.add_argument('--queue', action='store', dest='queue', help='Name of the queue consumer to run')
 
     def handle(self, *args, **options):
-        from django_huey import default_queue
+        from django_huey import get_queue, get_queue_name
 
         # Python 3.8+ on MacOS uses an incompatible multiprocess model. In this
         # case we must explicitly configure mp to use fork().
@@ -60,9 +59,12 @@ class Command(BaseCommand):
             except RuntimeError:
                 pass
 
-        queue = options.get('queue')
+        queue_name = options.get('queue')
+        queue = get_queue(queue_name)
+        queue_name = get_queue_name(queue_name)
+
         consumer_options = {}
-        consumer_options.update(self.default_queue_settings(queue))
+        consumer_options.update(self.default_queue_settings(queue_name))
 
         for key, value in options.items():
             if value is not None:
@@ -85,13 +87,12 @@ class Command(BaseCommand):
         if not logger.handlers:
             config.setup_logger(logger)
 
-        consumer = default_queue(queue).create_consumer(**config.values)
+        consumer = queue.create_consumer(**config.values)
         consumer.run()
 
     def default_queue_settings(self, queue):
         try:
-            if isinstance(settings.DJANGO_HUEY, dict):
-                return settings.DJANGO_HUEY[queue].get('consumer', {})
+            return settings.DJANGO_HUEY['queues'][queue].get('consumer', {})
         except AttributeError:
             pass
         return {}
