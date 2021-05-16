@@ -21,3 +21,7 @@ INSTALLED_APPS = [
 ]
 
 DJANGO_HUEY = {}
+HUEY = {
+    'name': 'test',
+    'immediate': True,
+}

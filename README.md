@@ -56,8 +56,8 @@ DJANGO_HUEY = {
 ## Usage
 Now you will be able to run multiple queues using:
 ```
-python manage.py run_djangohuey --queue first
-python manage.py run_djangohuey --queue emails
+python manage.py djangohuey --queue first
+python manage.py djangohuey --queue emails
 ```
 Each queue must be run in a different terminal.
 

@@ -1,10 +1,7 @@
 import unittest
-from unittest.mock import patch
 from huey import RedisHuey, MemoryHuey
-from huey.exceptions import ConfigurationError
-import os
+from django_huey.exceptions import ConfigurationError
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'tests.settings')
 from django_huey.config import DjangoHueySettingsReader
 
 class DjangoHueyTests(unittest.TestCase):
@@ -18,11 +15,6 @@ class DjangoHueyTests(unittest.TestCase):
 
 
     def test_djangohuey_configure_does_not_raise_error_when_both_settings_are_defined(self):
-        HUEY = {
-            'name': 'test',
-            'immediate': True,
-        }
-
         DJANGO_HUEY = {
             'queuename': {
                 'name': 'test',
@@ -48,12 +40,12 @@ class DjangoHueyTests(unittest.TestCase):
             config.default_queue(None)
 
         self.assertEqual("""
-If DJANGO_HUEY is configured run_djangohuey must receive a --queue parameter
+Command djangohuey must receive a --queue parameter
 i.e.: 
-python manage.py run_djangohuey --queue first
+python manage.py djangohuey --queue first
                 """, str(cm.exception))
 
-    def test_djangohuey_configure_when_hueys_setting_is_defined(self, *args):
+    def test_djangohuey_configure_when_django_huey_setting_is_defined(self, *args):
         DJANGO_HUEY = {
             'first': {
                 'huey_class': 'huey.RedisHuey',  # Huey implementation to use.
@@ -74,7 +66,7 @@ python manage.py run_djangohuey --queue first
         self.assertTrue(isinstance(config.default_queue('mails'), MemoryHuey))
         self.assertEqual(config.default_queue('mails').name, 'testnamememory')
 
-    def test_djangohuey_configure_when_hueys_setting_is_an_object_raises_error(self, *args):
+    def test_djangohuey_configure_when_django_huey_setting_is_an_object_raises_error(self, *args):
         DJANGO_HUEY = object()
 
         config = DjangoHueySettingsReader(DJANGO_HUEY)

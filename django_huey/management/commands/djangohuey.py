@@ -18,7 +18,7 @@ class Command(BaseCommand):
 
     To start the consumer (note you must export the settings module):
 
-    django-admin.py run_huey
+    django-admin.py djangohuey queuename
     """
     help = "Run the queue consumer"
     _type_map = {'int': int, 'float': float}
