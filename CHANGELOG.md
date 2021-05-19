@@ -4,7 +4,7 @@
 - Allow definition of queues by django app.
 - Allow definition of specific queues file path.
 
-## 1.0.0 - 
+## 1.0.0 - 2021-05-19
 **Note:** This release contains breaking changes, see them below with the migration instructions.
 
 ### Added
