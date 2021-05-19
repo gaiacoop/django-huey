@@ -1,4 +1,4 @@
-![Version](https://img.shields.io/badge/version-0.2.0-informational.svg)
+![Version](https://img.shields.io/badge/version-1.0.0-informational.svg)
 
 # django-huey
 
@@ -7,20 +7,19 @@ This package is an extension of [huey](https://github.com/coleifer/huey) contrib
 ## Compatible versions
 | Package     | Version     |
 | ----------- | ----------- |
-| Django      | 3.1.x       |
-| huey        | 2.3.x       |
+| Django      | 2.2         |
+| Django      | 3.1         |
+| Django      | 3.2         |
+| huey        | 2.3         |
 
 ## Installation
 
 Using pip package manager run:
 ```
-# pip install Django  if not installed
-# pip install huey    if not installed
 pip install django-huey
 ```
 
 Note: use a virtualenv to isolate your dependencies.
-Note 2: *django* and *huey* must be installed.
 
 Then, in your **settings.py** file add django_huey to the INSTALLED_APPS:
 ```python
@@ -78,9 +77,11 @@ You can use usual *huey* decorators to register tasks, but they must be imported
 from django_huey import db_task, task
 
 @db_task(queue='first')
+def some_func():
 	# perform some db task
 
 @task(queue='emails')
+def send_mails():
 	# send some emails
 ```
 
