@@ -76,13 +76,20 @@ You can use usual *huey* decorators to register tasks, but they must be imported
 ```python
 from django_huey import db_task, task
 
+@task() #Use the default queue 'first'
+def some_func_that_uses_default_queue():
+    # perform some db task
+    pass
+
 @db_task(queue='first')
 def some_func():
-	# perform some db task
+    # perform some db task
+    pass
 
 @task(queue='emails')
 def send_mails():
 	# send some emails
+    pass
 ```
 
 All the args and kwargs defined in huey decorators should work in the same way, if not, let us know.
