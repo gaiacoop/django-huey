@@ -18,9 +18,6 @@ class DjangoHueySettingsReader:
         self.hueys = {}
 
     def configure(self):
-        if not isinstance(self.hueys_setting, dict):
-            raise ConfigurationError('Error: DJANGO_HUEY must be a dictionary')
-
         new_hueys = dict()
         for queue_name, config in self.hueys_setting.items():
             huey_config = config.copy()
@@ -73,7 +70,6 @@ DJANGO_HUEY = {
         try:
             backend_cls = get_backend(backend_path)
         except (ValueError, ImportError, AttributeError):
-            raise ConfigurationError('Error: could not import Huey backend:\n%s'
-                         % traceback.format_exc())
+            raise ConfigurationError(f'Error: could not import Huey backend: {backend_path}')
 
         return backend_cls(name, **huey_config)
