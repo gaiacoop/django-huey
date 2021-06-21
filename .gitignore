@@ -4,3 +4,5 @@ env/
 /*.egg-info
 build/
 TODOs
+htmlcov/
+.coverage

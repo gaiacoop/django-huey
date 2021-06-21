@@ -1,4 +1,5 @@
 import unittest
+from unittest import mock
 from huey import RedisHuey, MemoryHuey
 from django_huey.exceptions import ConfigurationError
 
@@ -141,6 +142,31 @@ DJANGO_HUEY = {
         self.assertEqual(config.get_queue('mails').name, 'mails')
 
 
-if __name__ == '__main__':
+    def test_djangohuey_with_backend_class(self, *args):
+        DJANGO_HUEY = {
+            'queues': {
+                'first': {
+                    'backend_class': 'huey.RedisHuey',
+                }
+            }
+        }
 
-    unittest.main()
+        config = DjangoHueySettingsReader(DJANGO_HUEY)
+
+        config.configure()
+        self.assertTrue(isinstance(config.get_queue('first'), RedisHuey))
+
+    def test_djangohuey_invalid_backend_class(self, *args):
+        DJANGO_HUEY = {
+            'queues': {
+                'first': {
+                    'backend_class': 'huey.RedisHuey2',
+                }
+            }
+        }
+
+        with self.assertRaises(ConfigurationError) as cm:
+            config = DjangoHueySettingsReader(DJANGO_HUEY)
+            config.configure()
+
+        self.assertEqual('Error: could not import Huey backend: huey.RedisHuey2', str(cm.exception))
