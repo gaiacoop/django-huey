@@ -12,7 +12,7 @@ setup(
     description="An extension for django and huey that supports multi queue management",
     long_description=long_description,
     install_requires=[
-        "django>=2.2",
+        "django>=3.2",
         "huey>=2.0",
     ],
     long_description_content_type="text/markdown",

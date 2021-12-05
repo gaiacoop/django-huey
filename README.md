@@ -7,10 +7,8 @@ This package is an extension of [huey](https://github.com/coleifer/huey) contrib
 ## Compatible versions
 | Package     | Version     |
 | ----------- | ----------- |
-| Django      | 2.2         |
-| Django      | 3.1         |
 | Django      | 3.2         |
-| huey        | 2.3         |
+| huey        | 2.4         |
 
 ## Installation
 
@@ -70,7 +68,7 @@ python manage.py djangohuey
 And the default queue will be used.
 
 
-## Configuring tasks
+### Configuring tasks
 You can use usual *huey* decorators to register tasks, but they must be imported from django_huey as shown below:
 
 ```python
@@ -93,3 +91,17 @@ def send_mails():
 ```
 
 All the args and kwargs defined in huey decorators should work in the same way, if not, let us know.
+
+### Importing a huey instance
+Sometimes you'll need to import a huey instance in order to do some advanced configuration, for example, when using huey pipelines.
+
+You can do that by using the get_queue function from django_huey:
+```python
+from django_huey import get_queue
+
+first_q = get_queue('first')
+
+@first_q.task()
+def some_func():
+    pass
+```
