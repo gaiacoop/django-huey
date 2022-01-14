@@ -18,10 +18,12 @@ def get_close_db_for_queue(queue):
         """Decorator to be used with tasks that may operate on the database."""
         @wraps(fn)
         def inner(*args, **kwargs):
+            instance = get_queue(queue)
+            if not instance.immediate:
+                close_old_connections()
             try:
                 return fn(*args, **kwargs)
             finally:
-                instance = get_queue(queue)
                 if not instance.immediate:
                     close_old_connections()
         return inner
