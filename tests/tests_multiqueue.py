@@ -37,10 +37,10 @@ class MultiQueueTest(unittest.TestCase):
 
     def test_task_uses_default_queue_if_not_specified(self):
         @task()
-        def some_other_fun2():
+        def some_default_func():
             pass
 
-        some_other_fun2()
+        some_default_func()
 
         queue1 = get_queue('multi-1')
         queue2 = get_queue('multi-2')

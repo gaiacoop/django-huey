@@ -6,3 +6,4 @@ build/
 TODOs
 htmlcov/
 .coverage
+.local.env
