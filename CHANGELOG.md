@@ -4,6 +4,10 @@
 - Allow definition of queues by django app.
 - Allow definition of specific queues file path.
 
+## 1.0.1 - 2022-01-14
+### Added
+- Close db connections before task body. https://github.com/coleifer/huey/commit/e77acf307bfdade914ab7f91c65dbbc183af5d8f
+
 ## 1.0.0 - 2021-05-19
 **Note:** This release contains breaking changes, see them below with the migration instructions.
 

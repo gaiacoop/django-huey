@@ -3,7 +3,7 @@ env/
 /dist/
 /*.egg-info
 build/
-TODOs
+TODOs.md
 htmlcov/
 .coverage
 .local.env

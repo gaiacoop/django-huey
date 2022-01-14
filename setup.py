@@ -5,7 +5,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setup(
     name="django-huey",
-    version="1.0.0",
+    version="1.0.1",
     scripts=[],
     author="GAIA - Cooperativa de desarrollo de software",
     author_email="contacto@gaiacoop.tech",
@@ -20,7 +20,7 @@ setup(
     packages=find_packages(),
     include_package_data=True,
     classifiers=[
-        "Development Status :: 4 - Beta",
+        "Development Status :: 5 - Production/Stable",
         "Programming Language :: Python :: 3",
         'Framework :: Django :: 2.2',
         'Framework :: Django :: 3.1',
