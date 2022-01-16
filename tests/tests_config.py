@@ -180,3 +180,29 @@ DJANGO_HUEY = {
         self.assertEqual(
             "Error: could not import Huey backend: huey.RedisHuey2", str(cm.exception)
         )
+
+    def test_djangohuey_configure_when_there_are_two_queues_with_the_same_name(
+        self, *args
+    ):
+        DJANGO_HUEY = {
+            "queues": {
+                "first": {
+                    "huey_class": "huey.RedisHuey",
+                    "name": "first",
+                },
+                "mails": {
+                    "huey_class": "huey.MemoryHuey",
+                    "name": "first",
+                },
+            }
+        }
+
+        config = DjangoHueySettingsReader(DJANGO_HUEY)
+
+        with self.assertRaises(ConfigurationError) as cm:
+            config.configure()
+
+        self.assertEqual(
+            "There are more than one queue with the name 'first'. Check DJANGO_HUEY in your settings file.",
+            str(cm.exception),
+        )
