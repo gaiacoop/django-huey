@@ -19,8 +19,9 @@ class Command(BaseCommand):
 
     django-admin.py djangohuey queuename
     """
+
     help = "Run the queue consumer"
-    _type_map = {'int': int, 'float': float}
+    _type_map = {"int": int, "float": float}
 
     def add_arguments(self, parser):
         option_handler = OptionParserHandler()
@@ -31,35 +32,45 @@ class Command(BaseCommand):
         )
         for option_list in groups:
             for short, full, kwargs in option_list:
-                if short == '-v':
-                    full = '--huey-verbose'
-                    short = '-V'
-                if 'type' in kwargs:
-                    kwargs['type'] = self._type_map[kwargs['type']]
-                kwargs.setdefault('default', None)
+                if short == "-v":
+                    full = "--huey-verbose"
+                    short = "-V"
+                if "type" in kwargs:
+                    kwargs["type"] = self._type_map[kwargs["type"]]
+                kwargs.setdefault("default", None)
                 parser.add_argument(full, short, **kwargs)
 
-        parser.add_argument('-A', '--disable-autoload', action='store_true',
-                            dest='disable_autoload',
-                            help='Do not autoload "tasks.py"')
-        parser.add_argument('--queue', action='store', dest='queue', help='Name of the queue consumer to run')
+        parser.add_argument(
+            "-A",
+            "--disable-autoload",
+            action="store_true",
+            dest="disable_autoload",
+            help='Do not autoload "tasks.py"',
+        )
+        parser.add_argument(
+            "--queue",
+            action="store",
+            dest="queue",
+            help="Name of the queue consumer to run",
+        )
 
     def handle(self, *args, **options):
         from django_huey import get_queue, get_queue_name
 
         # Python 3.8+ on MacOS uses an incompatible multiprocess model. In this
         # case we must explicitly configure mp to use fork().
-        if sys.version_info >= (3, 8) and sys.platform == 'darwin':
+        if sys.version_info >= (3, 8) and sys.platform == "darwin":
             # Apparently this was causing a "context has already been set"
             # error for some user. We'll just pass and hope for the best.
             # They're apple users so presumably nothing important will be lost.
             import multiprocessing
+
             try:
-                multiprocessing.set_start_method('fork')
+                multiprocessing.set_start_method("fork")
             except RuntimeError:
                 pass
 
-        queue_name = options.get('queue')
+        queue_name = options.get("queue")
         queue = get_queue(queue_name)
         queue_name = get_queue_name(queue_name)
 
@@ -70,13 +81,14 @@ class Command(BaseCommand):
             if value is not None:
                 consumer_options[key] = value
 
-        consumer_options.setdefault('verbose',
-                                    consumer_options.pop('huey_verbose', None))
+        consumer_options.setdefault(
+            "verbose", consumer_options.pop("huey_verbose", None)
+        )
 
-        if not options.get('disable_autoload'):
+        if not options.get("disable_autoload"):
             autodiscover_modules("tasks")
 
-        logger = logging.getLogger('huey')
+        logger = logging.getLogger("huey")
 
         config = ConsumerConfig(**consumer_options)
         config.validate()
@@ -92,7 +104,7 @@ class Command(BaseCommand):
 
     def default_queue_settings(self, queue):
         try:
-            return settings.DJANGO_HUEY['queues'][queue].get('consumer', {})
+            return settings.DJANGO_HUEY["queues"][queue].get("consumer", {})
         except AttributeError:
             pass
         return {}

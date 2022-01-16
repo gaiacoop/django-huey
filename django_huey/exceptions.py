@@ -1,1 +1,2 @@
-class ConfigurationError(Exception): pass
+class ConfigurationError(Exception):
+    pass
