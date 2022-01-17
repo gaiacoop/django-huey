@@ -1,11 +1,11 @@
 import unittest
 from huey import RedisHuey, MemoryHuey
 from django_huey.exceptions import ConfigurationError
-
+from django_huey.utils import include
 from django_huey.config import DjangoHueySettingsReader
 
 
-class DjangoHueyTests(unittest.TestCase):
+class DjangoHueyConfigTests(unittest.TestCase):
     def test_djangohuey_config_with_no_settings(self):
 
         with self.assertRaises(ConfigurationError) as cm:
@@ -204,5 +204,40 @@ DJANGO_HUEY = {
 
         self.assertEqual(
             "There are more than one queue with the name 'first'. Check DJANGO_HUEY in your settings file.",
+            str(cm.exception),
+        )
+
+    def test_djangohuey_get_queue_when_queue_is_included_from_module(self):
+        DJANGO_HUEY = {
+            "queues": {
+                **include("tests.queuesvalid"),
+                "mails": {
+                    "huey_class": "huey.MemoryHuey",
+                    "name": "first",
+                },
+            },
+        }
+        config = DjangoHueySettingsReader(DJANGO_HUEY)
+
+        config.configure()
+        queue = config.get_queue("test")
+
+        self.assertEqual(queue.name, "test")
+
+    def test_djangohuey_include_module_without_queue_variable_raises_attribute_error(
+        self,
+    ):
+        with self.assertRaises(AttributeError):
+            {
+                "queues": {**include("tests.queuesinvalid")},
+            }
+
+    def test_djangohuey_include_non_existing_module(self):
+        with self.assertRaises(ConfigurationError) as cm:
+            {
+                "queues": {**include("tests.nonexisting")},
+            }
+        self.assertEqual(
+            "No module named 'tests.nonexisting'. Review included queues modules in DJANGO_HUEY.",
             str(cm.exception),
         )

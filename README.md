@@ -17,8 +17,6 @@ Using pip package manager run:
 pip install django-huey
 ```
 
-Note: use a virtualenv to isolate your dependencies.
-
 Then, in your **settings.py** file add django_huey to the INSTALLED_APPS:
 ```python
 INSTALLED_APPS = [
@@ -52,6 +50,50 @@ DJANGO_HUEY = {
     }
 }
 ```
+
+### Including queues from files
+You can also include a queue configuration from another file, located in one of your apps.
+Use django_huey.utils.include to do so:
+
+In **settings.py** you may have:
+```python
+DJANGO_HUEY = {
+    'default': 'first', #this name must match with any of the queues defined below.
+    'queues': {
+        # Your current queues definitions
+    }
+}
+
+# This is new
+from django_huey.utils import include
+DJANGO_HUEY["queues"].update(include("example_app.queues"))
+```
+
+And in your `example_app.queues`:
+```python
+queues = {
+    "test": {
+        "huey_class": "huey.MemoryHuey",
+        "results": True,
+        "store_none": False,
+        "immediate": False,
+        "utc": True,
+        "blocking": True,
+        "consumer": {
+            "workers": 1,
+            "worker_type": "thread",
+            "initial_delay": 0.1,
+            "backoff": 1.15,
+            "max_delay": 10.0,
+            "scheduler_interval": 60,
+            "periodic": True,
+            "check_worker_health": True,
+            "health_check_interval": 300,
+        },
+    },
+}
+```
+Note: in your queues file, you should declare a variable called `queues`, so they can be included. If the variable doesn't exist, an `AttributeError` will be raised.
 
 ### Usage
 Now you will be able to run multiple queues using:
