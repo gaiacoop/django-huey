@@ -35,6 +35,22 @@ class DjangoHueySettingsReader:
 
         self.hueys_setting = new_hueys
 
+    def include(self, queues):
+        new_hueys = dict()
+        queue_names = set()
+        for queue_name, config in queues.items():
+            huey_config = config.copy()
+
+            name = huey_config.pop("name", queue_name)
+            if name in queue_names or name in self.hueys_setting:
+                raise ConfigurationError(
+                    f"There are more than one queue with the name '{name}'. Check DJANGO_HUEY in your settings file."
+                )
+            queue_names.add(name)
+            new_hueys[queue_name] = self._configure_instance(huey_config, name)
+
+        self.hueys_setting.update(new_hueys)
+
     def get_queue(self, queue):
         return self.hueys_setting[self.get_queue_name(queue)]
 
