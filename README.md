@@ -50,7 +50,7 @@ DJANGO_HUEY = {
     }
 }
 ```
-
+*New in 1.1.0*
 ### Including queues from files
 You can also include a queue configuration from another file, located in one of your apps.
 Use django_huey.utils.include to do so:
