@@ -1,8 +1,9 @@
 # Changelog
 
-## Unreleased
-- Allow definition of queues by django app.
+## 1.1.0 - 2022-01-18
+### Added
 - Allow definition of specific queues file path.
+- Configuration error is raised if two queues have the same name.
 
 ## 1.0.1 - 2022-01-14
 ### Added

@@ -1,4 +1,4 @@
-![Version](https://img.shields.io/badge/version-1.0.1-informational.svg)
+![Version](https://img.shields.io/badge/version-1.1.0-informational.svg)
 
 # django-huey
 
