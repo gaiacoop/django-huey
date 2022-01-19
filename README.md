@@ -1,6 +1,8 @@
-![Version](https://img.shields.io/badge/version-1.1.0-informational.svg)
+ [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) ![Version](https://img.shields.io/badge/version-1.1.0-informational.svg)
 
 # django-huey
+
+***
 
 This package is an extension of [huey](https://github.com/coleifer/huey) contrib djhuey package that allows users to manage multiple queues.
 
@@ -50,8 +52,10 @@ DJANGO_HUEY = {
     }
 }
 ```
-*New in 1.1.0*
+
 ### Including queues from files
+*new in 1.1.0*
+
 You can also include a queue configuration from another file, located in one of your apps.
 Use django_huey.utils.include to do so:
 
