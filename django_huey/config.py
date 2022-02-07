@@ -1,6 +1,15 @@
+from importlib import import_module
 from django.conf import settings
 from django_huey.exceptions import ConfigurationError
-from huey.contrib.djhuey import default_backend_path, get_backend
+
+
+default_backend_path = "huey.RedisHuey"
+
+
+def get_backend(import_path=default_backend_path):
+    module_path, class_name = import_path.rsplit(".", 1)
+    module = import_module(module_path)
+    return getattr(module, class_name)
 
 
 class DjangoHueySettingsReader:
