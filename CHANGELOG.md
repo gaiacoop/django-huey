@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.1.1 - 2022-02-07
+### Fixed
+- [#8](https://github.com/gaiacoop/django-huey/issues/8) - Redis was required when using SqliteHuey
+
 ## 1.1.0 - 2022-01-18
 ### Added
 - Allow definition of specific queues file path.
