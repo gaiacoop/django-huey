@@ -151,3 +151,20 @@ first_q = get_queue('first')
 def some_func():
     pass
 ```
+
+### Integration with huey monitor
+You can use django-huey with [huey monitor](https://github.com/boxine/django-huey-monitor) using the following pattern:
+
+```python
+from django_huey import task, on_startup, signal
+from huey_monitor.tasks import startup_handler, store_signals
+
+# This setup must be done for each queue.
+signal(queue='emails')(store_signals)
+on_startup(queue='emails')(startup_handler)
+
+@task(queue='emails')
+def send_mails(parameter):
+	# send some emails
+    pass
+```
