@@ -15,6 +15,8 @@ MIDDLEWARE_CLASSES = []
 
 INSTALLED_APPS = ["django_huey"]
 
+USE_TZ = True
+
 DJANGO_HUEY = {
     "default": "multi-2",
     "queues": {
