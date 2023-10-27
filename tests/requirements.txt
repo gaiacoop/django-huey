@@ -1,2 +1,3 @@
-Django==4.2
-huey==2.4.5
+Django>=4.2a1,<5.0 ; python_version < "3.10"
+Django>=5.0a1,<5.1 ; python_version >= "3.10"
+huey==2.5.0
