@@ -1,4 +1,4 @@
- [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) ![Version](https://img.shields.io/badge/version-1.1.1-informational.svg)
+ [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) ![Version](https://img.shields.io/badge/version-1.1.2-informational.svg)
 
 # django-huey
 
@@ -9,7 +9,10 @@ This package is an extension of [huey](https://github.com/coleifer/huey) contrib
 ## Compatible versions
 | Package     | Version     |
 | ----------- | ----------- |
+| Django      | 5.0         |
+| Django      | 4.2         |
 | Django      | 3.2         |
+| huey        | 2.5         |
 | huey        | 2.4         |
 
 ## Installation

@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.1.2 - 2023-11-01
+### Fixed
+- [#17](https://github.com/gaiacoop/django-huey/issues/17) - Support for python 3.12 and Django 5.0
+
 ## 1.1.1 - 2022-02-07
 ### Fixed
 - [#8](https://github.com/gaiacoop/django-huey/issues/8) - Redis was required when using SqliteHuey
