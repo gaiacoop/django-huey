@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.2.0 - 2024-04-14
+### Added
+- Automatic configuration of queues with `huey-monitor`
+
 ## 1.1.2 - 2023-11-01
 ### Fixed
 - [#17](https://github.com/gaiacoop/django-huey/issues/17) - Support for python 3.12 and Django 5.0
