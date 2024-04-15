@@ -1,4 +1,4 @@
- [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) ![Version](https://img.shields.io/badge/version-1.1.2-informational.svg)
+ [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) ![Version](https://img.shields.io/badge/version-1.2.0-informational.svg)
 
 # django-huey
 
@@ -156,18 +156,4 @@ def some_func():
 ```
 
 ### Integration with huey monitor
-You can use django-huey with [huey monitor](https://github.com/boxine/django-huey-monitor) using the following pattern:
-
-```python
-from django_huey import task, on_startup, signal
-from huey_monitor.tasks import startup_handler, store_signals
-
-# This setup must be done for each queue.
-signal(queue='emails')(store_signals)
-on_startup(queue='emails')(startup_handler)
-
-@task(queue='emails')
-def send_mails(parameter):
-	# send some emails
-    pass
-```
+You can use django-huey with [huey monitor](https://github.com/boxine/django-huey-monitor).
