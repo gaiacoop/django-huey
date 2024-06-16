@@ -1,0 +1,2 @@
+-r base.txt
+django-huey-monitor==0.8.1

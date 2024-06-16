@@ -33,7 +33,7 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         python -m pip install flake8
-        pip install -r tests/requirements.txt
+        pip install -r tests/requirements/base.txt
     - name: Lint with flake8
       run: |
         # stop the build if there are Python syntax errors or undefined names
@@ -42,6 +42,16 @@ jobs:
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
     - name: Test with unittest
       env:
-        DJANGO_SETTINGS_MODULE: tests.settings
+        DJANGO_SETTINGS_MODULE: tests.settings.base
+      run: |
+        python -W all -m unittest
+    - name: Install huey_monitor
+      run: |
+        python -m pip install --upgrade pip
+        python -m pip install flake8
+        pip install -r tests/requirements/monitor.txt
+    - name: Test with monitor installed
+      env:
+        DJANGO_SETTINGS_MODULE: tests.settings.monitor
       run: |
         python -W all -m unittest
