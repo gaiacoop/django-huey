@@ -12,12 +12,7 @@ class DjangoHueyConfig(AppConfig):
             monitor_installed = False
 
         if monitor_installed:
-
-            from django_huey import config
-            if not hasattr(config, 'hueys_setting'):
-                from django_huey.config import config
-
-            from django_huey import signal, on_startup
+            from django_huey import config, signal, on_startup
 
             for queuename in config.hueys_setting.keys():
                 signal(queue=queuename)(store_signals)
