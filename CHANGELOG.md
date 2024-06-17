@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.2.1 - 2024-06-16
+### Fixed
+- Import error on automatic config of `huey-monitor`
+
 ## 1.2.0 - 2024-04-14
 ### Added
 - Automatic configuration of queues with `huey-monitor`
