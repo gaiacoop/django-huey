@@ -1,2 +1,3 @@
 -r base.txt
-django-huey-monitor==0.8.1
+django-huey-monitor<0.5.0 ; python_version < "3.9"
+django-huey-monitor>=0.8.1 ; python_version >= "3.9"
