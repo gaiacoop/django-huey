@@ -42,6 +42,10 @@ def task(*args, queue=None, **kwargs):
     return get_queue(queue).task(*args, **kwargs)
 
 
+def context_task(*args, queue=None, **kwargs):
+    return get_queue(queue).context_task(*args, **kwargs)
+
+
 def periodic_task(*args, queue=None, **kwargs):
     return get_queue(queue).periodic_task(*args, **kwargs)
 
