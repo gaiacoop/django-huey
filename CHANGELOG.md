@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.3.0 - 2025-06-01
+### Added
+- Support for huey context_task decorator (@tcely)
+
 ## 1.2.1 - 2024-06-16
 ### Fixed
 - Import error on automatic config of `huey-monitor`
