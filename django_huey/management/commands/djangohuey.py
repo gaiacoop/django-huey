@@ -71,9 +71,9 @@ class Command(BaseCommand):
             except RuntimeError:
                 pass
 
-        queue_name = options.get("queue")
+        # use the provided name or the default queue
+        queue_name = get_queue_name(options.get("queue") or None)
         queue = get_queue(queue_name)
-        queue_name = get_queue_name(queue_name)
 
         consumer_options = {}
         consumer_options.update(self.default_queue_settings(queue_name))
