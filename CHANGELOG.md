@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.3.1 - 2026-01-10
+### Fixed
+- Fix for Python 3.14, using fork instead of forkserver (@cbm755)
+- Assign queue_name before it is used (@tcely)
+
 ## 1.3.0 - 2025-06-01
 ### Added
 - Support for huey context_task decorator (@tcely)

@@ -5,7 +5,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setup(
     name="django-huey",
-    version="1.3.0",
+    version="1.3.1",
     scripts=[],
     author="GAIA - Cooperativa de desarrollo de software",
     author_email="contacto@gaiacoop.tech",
@@ -22,13 +22,12 @@ setup(
     classifiers=[
         "Development Status :: 5 - Production/Stable",
         "Programming Language :: Python :: 3",
-        "Framework :: Django :: 2.2",
-        "Framework :: Django :: 3.1",
-        "Framework :: Django :: 3.2",
         "Framework :: Django :: 4.0",
         "Framework :: Django :: 4.1",
         "Framework :: Django :: 4.2",
         "Framework :: Django :: 5.0",
+        "Framework :: Django :: 5.1",
+        "Framework :: Django :: 5.2",
         "Intended Audience :: Developers",
         "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",
